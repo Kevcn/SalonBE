@@ -11,7 +11,7 @@ namespace Contracts.V1
         public const string Version = "v1";
         public const string Base = Root + "/" + Version;
 
-        // Routes for Stocks
+        // Routes for Stocks // TODO: To be removed
         public static class Stock
         {
             // GET
@@ -27,6 +27,17 @@ namespace Contracts.V1
             public const string Create = Base + "/stocks";
         }
 
+        public static class Appointment
+        {
+            public const string GetDayAvailablity = Base + "/GetDayAvailablity/{date}";
+
+            public const string GetTimeAvailablity = Base + "/GetTimeAvailablity/{date}";
+
+            public const string Book = Base + "/Book";
+
+            public const string Cancel = Base + "/Cancel";
+        }
+
         // Not quite RESTful standard
         public static class Identity
         {
@@ -36,7 +47,5 @@ namespace Contracts.V1
 
             public const string Refresh = Base + "/identity/refresh";
         }
-
-
     }
 }
