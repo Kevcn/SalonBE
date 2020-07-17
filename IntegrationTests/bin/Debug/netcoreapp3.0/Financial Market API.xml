@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Financial Market API</name>
+    </assembly>
+    <members>
+        <member name="M:Financial_Market_API.Controllers.IdentityController.Login(Contracts.V1.Requests.UserLoginRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <remarks>
+                **Test Login**:
+                POST /api/v1/login
+                {
+                    "Email": "admin11@gmail.com"
+                 }
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Financial_Market_API.Controllers.StockController.GetAll">
+            <summary>
+            Returns a list of Stocks
+            </summary>
+            <response code="200">Creates a stock in the system</response>
+            <response code="401">Unauthorized</response>
+        </member>
+    </members>
+</doc>

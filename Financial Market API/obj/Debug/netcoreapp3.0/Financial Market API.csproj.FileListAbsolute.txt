@@ -1,0 +1,72 @@
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\appsettings.Development.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\appsettings.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.StaticWebAssets.xml
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.exe
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.deps.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.runtimeconfig.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.runtimeconfig.dev.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.pdb
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Financial Market API.xml
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\AutoMapper.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\FluentValidation.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\FluentValidation.AspNetCore.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.Data.SqlClient.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.Identity.Client.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\System.Configuration.ConfigurationManager.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\System.Runtime.Caching.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\System.Security.Cryptography.ProtectedData.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win-arm64\native\sni.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win-x64\native\sni.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win-x86\native\sni.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Contracts.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\bin\Debug\netcoreapp3.0\Contracts.pdb
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.csprojAssemblyReference.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.AssemblyInfoInputs.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.AssemblyInfo.cs
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.csproj.CoreCompileInputs.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.MvcApplicationPartsAssemblyInfo.cs
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.MvcApplicationPartsAssemblyInfo.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.RazorTargetAssemblyInfo.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.csproj.CopyComplete
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\staticwebassets\Financial Market API.StaticWebAssets.Manifest.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\staticwebassets\Financial Market API.StaticWebAssets.xml
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.xml
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.pdb
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Financial Market API\obj\Debug\netcoreapp3.0\Financial Market API.genruntimeconfig.cache

@@ -1,0 +1,9 @@
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\bin\Debug\netstandard2.0\Contracts.deps.json
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\bin\Debug\netstandard2.0\Contracts.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\bin\Debug\netstandard2.0\Contracts.pdb
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.AssemblyInfoInputs.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.AssemblyInfo.cs
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.csproj.CoreCompileInputs.cache
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.dll
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.pdb
+D:\FinancialAPI\ASP.NET-CORE-API\Financial Market API\Contract\obj\Debug\netstandard2.0\Contracts.csprojAssemblyReference.cache
