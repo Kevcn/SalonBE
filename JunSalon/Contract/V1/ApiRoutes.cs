@@ -36,6 +36,9 @@ namespace Contracts.V1
             public const string Book = Base + "/Book";
 
             public const string Cancel = Base + "/Cancel";
+            
+            public const string ViewBookings = Base + "/ViewBookings";
+
         }
 
         // Not quite RESTful standard

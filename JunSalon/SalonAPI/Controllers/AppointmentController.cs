@@ -24,15 +24,15 @@ namespace SalonAPI.Controllers
         [HttpGet(ApiRoutes.Appointment.GetDayAvailablity)]
         public async Task<IActionResult> GetDayAvailablity([FromRoute] string date)
         {
-            var Availablity = await _bookingService.GetDayAvailablity(date);
-            return Ok(_mapper.Map<List<DayAvailabilityResponse>>(Availablity));
+            var availablity = await _bookingService.GetDayAvailablity(date);
+            return Ok(_mapper.Map<List<DayAvailabilityResponse>>(availablity));
         }
         
         [HttpGet(ApiRoutes.Appointment.GetTimeAvailablity)]
         public async Task<IActionResult> GetTimeAvailablity([FromRoute] string date)
         {
-            var Availablity = await _bookingService.GetTimeAvailablity(date);
-            return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(Availablity));
+            var availablity = await _bookingService.GetTimeAvailablity(date);
+            return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(availablity));
         }
         
         [HttpGet(ApiRoutes.Appointment.Book)]
@@ -67,7 +67,12 @@ namespace SalonAPI.Controllers
 
             return NotFound();
         }
-        
-        
+
+        [HttpGet(ApiRoutes.Appointment.ViewBookings)] // Managers view
+        public async Task<IActionResult> GetAll(string dateFrom, string dateTo)
+        {
+            // Defaults to the coming 2 weeks
+            return null;
+        }
     }
 }
