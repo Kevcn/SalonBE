@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SalonAPI.Domain;
 using SalonAPI.Repository;
@@ -17,16 +18,34 @@ namespace SalonAPI.Services
             _contactRepository = contactRepository;
         }
 
-        public async Task<List<DayAvailability>> GetDayAvailablity(string date)
+        public async Task<List<DayAvailability>> GetDayAvailablity(DateTime date)
         {
-            // TODO: add day range?
+            var availablities = new List<DayAvailability>();
             
-            // Query booking record on date + 14, if not all time slots are taken, return true
+            var endDate = date.AddDays(14);
+
+            var bookingRecords = await _appointmentRepository.GetAppointmentsByDay(date, endDate);
+
+            // order and group by date
+
+            var days = bookingRecords.GroupBy(x => x.Date).ToList();
+            
+            // List<List<bookingRecords>> days = 
+            // if number of bookings is less than 14, should 
+            
+            foreach (var booking in bookingRecords)
+            {
+                
+            }
+            
+            // Query booking record on date + 14, if not all time slots are taken for a perticular day, return true
+            
+            
             
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<TimeAvailability>> GetTimeAvailablity(string date)
+        public async Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date)
         {
             // query where date = date, get a list of bookingRecords, turn that into a list timeAvailable
             
@@ -35,7 +54,7 @@ namespace SalonAPI.Services
 
         public async Task<bool> BookAppointment(BookingRecord bookingRecord)
         {
-            // insert into contact - // TODO: check for duplicates before insert
+            // insert into contact - // TODO: check for duplicates before insert, use DB trigger? return -1 if duplicate
             var contactID =  await _contactRepository.AddContact(bookingRecord.contact);
             
             // insert into bookingRecord

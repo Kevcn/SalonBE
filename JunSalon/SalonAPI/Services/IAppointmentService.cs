@@ -7,8 +7,8 @@ namespace SalonAPI.Services
 {
     public interface IAppointmentService
     {
-        Task<List<DayAvailability>> GetDayAvailablity(string date);
-        Task<List<TimeAvailability>> GetTimeAvailablity(string date);
+        Task<List<DayAvailability>> GetDayAvailablity(DateTime date);
+        Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date);
         Task<bool> BookAppointment(BookingRecord bookingRecord);
         Task<bool> CancelAppointment(BookingRecord bookingRecord);
 

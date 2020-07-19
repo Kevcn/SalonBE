@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,14 +24,14 @@ namespace SalonAPI.Controllers
         }
 
         [HttpGet(ApiRoutes.Appointment.GetDayAvailablity)]
-        public async Task<IActionResult> GetDayAvailablity([FromRoute] string date)
+        public async Task<IActionResult> GetDayAvailablity([FromRoute] DateTime date)
         {
             var availablity = await _appointmentervice.GetDayAvailablity(date);
             return Ok(_mapper.Map<List<DayAvailabilityResponse>>(availablity));
         }
         
         [HttpGet(ApiRoutes.Appointment.GetTimeAvailablity)]
-        public async Task<IActionResult> GetTimeAvailablity([FromRoute] string date)
+        public async Task<IActionResult> GetTimeAvailablity([FromRoute] DateTime date)
         {
             var availablity = await _appointmentervice.GetTimeAvailablity(date);
             return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(availablity));
@@ -39,6 +40,8 @@ namespace SalonAPI.Controllers
         [HttpPost(ApiRoutes.Appointment.Book)]
         public async Task<IActionResult> Book([FromBody] BookingRecord bookingRecord)
         {
+            // Takes Name, phone and date, timeslot ID
+            
             // TODO: create bookingrecordRequest object, new bookingrecord from that
             // var bookingRecord = new BookingRecord
             // {
@@ -53,7 +56,8 @@ namespace SalonAPI.Controllers
                 return NotFound();
             }
             
-            return Ok(_mapper.Map<BookingResponse>(bookingRecord));
+            // TODO: auto map this to reponse object
+            return Ok(bookingRecord);
         }
         
         [HttpPost(ApiRoutes.Appointment.Cancel)]
