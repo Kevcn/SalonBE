@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using SalonAPI.Configuration;
 using SalonAPI.Installers;
+using SalonAPI.Repository;
 using SalonAPI.Services;
 
 namespace SalonAPI
@@ -30,6 +31,9 @@ namespace SalonAPI
 
             installers.ForEach(installer => installer.InstallServices(services, Configuration));
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,6 +3,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contracts.V1;
+using Contracts.V1.Requests;
 using Contracts.V1.Responses;
 using Microsoft.AspNetCore.Mvc;
 using SalonAPI.Domain;
@@ -12,37 +13,39 @@ namespace SalonAPI.Controllers
 {
     public class AppointmentController : ControllerBase
     {
-        private readonly IBookingService _bookingService;
+        private readonly IAppointmentService _appointmentervice;
         private readonly IMapper _mapper;
 
-        public AppointmentController(IMapper mapper, IBookingService bookingService)
+        public AppointmentController(IMapper mapper, IAppointmentService appointmentService)
         {
             _mapper = mapper;
-            _bookingService = bookingService;
+            _appointmentervice = appointmentService;
         }
 
         [HttpGet(ApiRoutes.Appointment.GetDayAvailablity)]
         public async Task<IActionResult> GetDayAvailablity([FromRoute] string date)
         {
-            var availablity = await _bookingService.GetDayAvailablity(date);
+            var availablity = await _appointmentervice.GetDayAvailablity(date);
             return Ok(_mapper.Map<List<DayAvailabilityResponse>>(availablity));
         }
         
         [HttpGet(ApiRoutes.Appointment.GetTimeAvailablity)]
         public async Task<IActionResult> GetTimeAvailablity([FromRoute] string date)
         {
-            var availablity = await _bookingService.GetTimeAvailablity(date);
+            var availablity = await _appointmentervice.GetTimeAvailablity(date);
             return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(availablity));
         }
         
-        [HttpGet(ApiRoutes.Appointment.Book)]
-        public async Task<IActionResult> Book([FromBody] BookingRecord bookingRequest)
+        [HttpPost(ApiRoutes.Appointment.Book)]
+        public async Task<IActionResult> Book([FromBody] BookingRecord bookingRecord)
         {
-            // TODO: create bookingrecordRequest object, new bookingrecord from that 
+            // TODO: create bookingrecordRequest object, new bookingrecord from that
+            // var bookingRecord = new BookingRecord
+            // {
+            //     contact = bookingRequest
+            // };
             
-            var bookingRecord = new BookingRecord();
-            
-            var booked = await _bookingService.BookAppointment(bookingRecord);
+            var booked = await _appointmentervice.BookAppointment(bookingRecord);
 
             if (!booked)
             {
@@ -53,12 +56,14 @@ namespace SalonAPI.Controllers
             return Ok(_mapper.Map<BookingResponse>(bookingRecord));
         }
         
-        [HttpGet(ApiRoutes.Appointment.Cancel)]
+        [HttpPost(ApiRoutes.Appointment.Cancel)]
         public async Task<IActionResult> Cancel([FromBody] BookingRecord bookingRequest)
         {
+            // Provide phone number and date
+            
             var bookingRecord = new BookingRecord();
             
-            var cancelled = await _bookingService.CancelAppointment(bookingRecord);
+            var cancelled = await _appointmentervice.CancelAppointment(bookingRecord);
 
             if (!cancelled)
             {

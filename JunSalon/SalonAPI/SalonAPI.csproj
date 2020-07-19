@@ -20,17 +20,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Contract\Contracts.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Repository" />
   </ItemGroup>
 
 </Project>
