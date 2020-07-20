@@ -26,23 +26,21 @@ namespace SalonAPI.Services
 
             var bookingRecords = await _appointmentRepository.GetAppointmentsByDay(date, endDate);
 
-            // order and group by date
-
-            var days = bookingRecords.GroupBy(x => x.Date).ToList();
-            
-            // List<List<bookingRecords>> days = 
-            // if number of bookings is less than 14, should 
-            
-            foreach (var booking in bookingRecords)
+            // add 14 days into the list, for each day, search the number of record, return true for less than 16 records
+            for (int i = 0; i < 14; i++)
             {
+                var currentDate = date.AddDays(i);
                 
+                var availablity = new DayAvailability
+                {
+                    date = currentDate,
+                    Available = bookingRecords.Count(x => x.Date == currentDate) < 16
+                };
+                
+                availablities.Add(availablity);
             }
-            
-            // Query booking record on date + 14, if not all time slots are taken for a perticular day, return true
-            
-            
-            
-            throw new System.NotImplementedException();
+
+            return availablities;
         }
 
         public async Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date)
