@@ -4,17 +4,19 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
+using Microsoft.Extensions.Options;
+using SalonAPI.Configuration;
 using SalonAPI.Domain;
 
 namespace SalonAPI.Repository
 {
     public class ContactRepository : IContactRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly MySqlConfig _mySqlConfig;
 
-        public ContactRepository(IConfiguration configuration)
+        public ContactRepository(IOptions<MySqlConfig> mySqlConfig)
         {
-            _configuration = configuration;
+            _mySqlConfig = mySqlConfig.Value;
         }
         
         public async Task<int> AddContact(Contact contact)
@@ -34,8 +36,7 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection =
-                    new MySqlConnection(connectionString: _configuration.GetConnectionString("LocalMySQL"));
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
                 var contactID = await _connection.QueryAsync<int>(insertContactStatement,
                     new
                     {
@@ -50,11 +51,13 @@ namespace SalonAPI.Repository
             }
             catch (MySqlException exception)
             {
+                // TODO: log expection
                 Console.WriteLine(exception);
                 throw;
             }
             catch(InvalidOperationException exception)
             {
+                // TODO: log expection
                 Console.WriteLine(exception);
                 throw;
             }

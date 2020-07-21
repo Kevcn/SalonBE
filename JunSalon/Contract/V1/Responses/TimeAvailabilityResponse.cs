@@ -2,6 +2,7 @@
 {
     public class TimeAvailabilityResponse
     {
-        
+        public int TimeSlotID { get; set; }
+        public bool Available { get; set; }
     }
 }

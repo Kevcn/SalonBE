@@ -1,84 +1,140 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.Configuration;
 using MySql.Data.MySqlClient;
 using SalonAPI.Domain;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using SalonAPI.Configuration;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Dapper;
+
 
 namespace SalonAPI.Repository
 {
     public class AppointmentRepository : IAppointmentRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly MySqlConfig _mySqlConfig;
 
-
-        public AppointmentRepository(IConfiguration configuration)
+        public AppointmentRepository(IOptions<MySqlConfig> mySqlConfig)
         {
-            _configuration = configuration;
+            _mySqlConfig = mySqlConfig.Value;
+
         }
 
         public async Task<List<BookingRecord>> GetAppointmentsByDay(DateTime startDate, DateTime endDate)
         {
-            var bookingRecords = new List<BookingRecord>();
+            const string selectBookingRecords = @"
+            SELECT 
+                TimeSlotID, 
+                Date 
+            FROM bookingrecord 
+            WHERE Date > @StartDate 
+                AND Date < @EndDate";
             
-            await using (var _connection = new MySqlConnection(connectionString: _configuration.GetConnectionString("LocalMySQL")))
+            try
             {
-                await _connection.OpenAsync();
-
-                MySqlCommand cmd = new MySqlCommand(
-                    @"SELECT TimeSlotID, Date FROM bookingrecord WHERE Date > @StartDate AND Date < @EndDate",
-                    _connection);
-
-                cmd.Parameters.AddWithValue("@StartDate", startDate);
-                cmd.Parameters.AddWithValue("@EndDate", endDate);
-
-                var reader = await cmd.ExecuteReaderAsync();
-
-                while (reader.HasRows)
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
-                    while (await reader.ReadAsync())
-                    {
-                        var bookingRecord = new BookingRecord
-                        {
-                            Date = (DateTime) reader["Date"],
-                            TimeSlotID = (int) reader["TimeSlotID"]
-                        };
+                    StartDate = startDate,
+                    EndDate = endDate
+                });
 
-                        bookingRecords.Add(bookingRecord);
-                    }
-                    await reader.NextResultAsync();
-                }
-
-                return bookingRecords;
+                return bookingRecords.ToList();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
             }
         }
 
         public async Task<List<BookingRecord>> GetSingleDayAppointments(DateTime date)
         {
-            throw new NotImplementedException();
+            const string selectBookingRecords = @"
+            SELECT 
+                TimeSlotID, 
+                Date 
+            FROM bookingrecord 
+            WHERE Date = @Date";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
+                {
+                    Date = date
+                });
+
+                return bookingRecords.ToList();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public async Task<bool> AddAppointment(BookingRecord bookingRecord, int contactID)
         {
-            await using (var _connection = new MySqlConnection(connectionString: _configuration.GetConnectionString("LocalMySQL")))
+            const string addAppointmentStatement = @"
+            INSERT INTO bookingrecord (
+                ContactID, 
+                TimeSlotID, 
+                Date, 
+                Description,
+                CreatedDate) 
+            VALUES (
+                @ContactID, 
+                @TimeSlotID, 
+                @Date, 
+                @Description, 
+                @CreatedDate);";
+
+            try
             {
-                await _connection.OpenAsync();
-
-                MySqlCommand cmd = new MySqlCommand(
-                    @"INSERT INTO bookingrecord (ContactID, TimeslotID, Date, Description, CreatedDate) VALUES (@ContactID, @TimeSlotID, @Date, @Description, @CreatedDate)",
-                    _connection);
-
-                cmd.Parameters.AddWithValue("@ContactID", contactID);
-                cmd.Parameters.AddWithValue("@TimeSlotID", bookingRecord.TimeSlotID);
-                cmd.Parameters.AddWithValue("@Date", bookingRecord.Date);
-                cmd.Parameters.AddWithValue("@Description", bookingRecord.Description);
-                cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now.ToShortDateString());
-
-                int inserted = await cmd.ExecuteNonQueryAsync();
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var inserted = await _connection.ExecuteAsync(addAppointmentStatement,
+                    new
+                    {
+                        ContactID = contactID,
+                        TimeslotID = bookingRecord.TimeSlotID,
+                        Date = bookingRecord.Date,
+                        Description = bookingRecord.Description,
+                        CreatedDate = DateTime.Now.ToShortDateString()
+                    });
 
                 return inserted > 0;
+
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
             }
         }
 

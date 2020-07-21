@@ -4,7 +4,7 @@ namespace SalonAPI.Domain
 {
     public class TimeAvailability
     {
-        public DateTime time { get; set; }
+        public int TimeSlotID { get; set; }
         public bool Available { get; set; }
     }
 }

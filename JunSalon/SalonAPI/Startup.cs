@@ -34,6 +34,9 @@ namespace SalonAPI
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
+            
+            services.Configure<MySqlConfig>(Configuration.GetSection("MySqlConfig"));
+            services.AddOptions();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

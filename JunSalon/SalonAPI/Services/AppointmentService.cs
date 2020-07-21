@@ -46,8 +46,27 @@ namespace SalonAPI.Services
         public async Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date)
         {
             // query where date = date, get a list of bookingRecords, turn that into a list timeAvailable
+
+            var numberOfTimeSlots = 16;
             
-            throw new System.NotImplementedException();
+            var availablities = new List<TimeAvailability>();
+
+            var bookingRecords = await _appointmentRepository.GetSingleDayAppointments(date);
+
+            // if timeslot exists, return false
+            
+            for (int i = 0; i < numberOfTimeSlots; i++)
+            {
+                var availablity = new TimeAvailability
+                {
+                    TimeSlotID = i,
+                    Available = bookingRecords.Any(x => x.TimeSlotID == i) // TODO: THIS LOGIC IS WRONG
+                };
+                
+                availablities.Add(availablity);
+            }
+            
+            return availablities;
         }
 
         public async Task<bool> BookAppointment(BookingRecord bookingRecord)
