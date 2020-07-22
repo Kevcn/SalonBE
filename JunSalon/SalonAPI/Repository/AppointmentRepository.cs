@@ -94,7 +94,7 @@ namespace SalonAPI.Repository
 
         public async Task<bool> AddAppointment(BookingRecord bookingRecord, int contactID)
         {
-            const string addAppointmentStatement = @"
+            const string addAppointment = @"
             INSERT INTO bookingrecord (
                 ContactID, 
                 TimeSlotID, 
@@ -111,7 +111,7 @@ namespace SalonAPI.Repository
             try
             {
                 await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
-                var inserted = await _connection.ExecuteAsync(addAppointmentStatement,
+                var inserted = await _connection.ExecuteAsync(addAppointment,
                     new
                     {
                         ContactID = contactID,
@@ -123,6 +123,40 @@ namespace SalonAPI.Repository
 
                 return inserted > 0;
 
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public async Task<bool> VerifyTimeSlotAvailable(BookingRecord bookingRecord)
+        {
+            const string verifyTimeSlot = @"
+            SELECT 
+                Count(*)
+            FROM bookingrecord 
+            WHERE Date = @Date
+                AND TimeSlotID = @TimeSlotID";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<int>(verifyTimeSlot, new
+                {
+                    Date = bookingRecord.Date,
+                    TimeSlotID = bookingRecord.TimeSlotID
+                });
+
+                return bookingRecords.Single() > 0;
             }
             catch (MySqlException exception)
             {

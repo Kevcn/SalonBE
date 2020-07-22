@@ -1,6 +1,6 @@
-﻿namespace Contracts.V1.Requests
+﻿namespace Contracts.V1.Responses
 {
-    public class Contact
+    public class ContactResponse
     {
         public string Name { get; set; }
         public string Phone { get; set; }

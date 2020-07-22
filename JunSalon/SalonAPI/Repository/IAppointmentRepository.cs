@@ -12,7 +12,7 @@ namespace SalonAPI.Repository
         Task<List<BookingRecord>> GetSingleDayAppointments(DateTime date);
 
         Task<bool> AddAppointment(BookingRecord bookingRecord, int contactID);
-
+        Task<bool> VerifyTimeSlotAvailable(BookingRecord bookingRecord);
         Task<bool> RemoveAppointment(BookingRecord bookingRecord);
 
         Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);

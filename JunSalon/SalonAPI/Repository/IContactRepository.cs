@@ -6,5 +6,6 @@ namespace SalonAPI.Repository
     public interface IContactRepository
     {
         Task<int> AddContact(Contact contact);
+        Task<Contact> CheckDuplicate(Contact contact);
     }
 }

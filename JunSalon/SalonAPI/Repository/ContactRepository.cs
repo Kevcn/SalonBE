@@ -62,5 +62,43 @@ namespace SalonAPI.Repository
                 throw;
             }
         }
+
+        public async Task<Contact> CheckDuplicate(Contact contact)
+        {
+            const string checkDuplicateContact = @"
+            SELECT *
+            FROM contact 
+            WHERE Name = @Name 
+                AND Phone = @Phone";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var contactFound = await _connection.QueryAsync<Contact>(checkDuplicateContact, new
+                {
+                    Name = contact.Name,
+                    Phone = contact.Phone
+                });
+
+                if (!contactFound.Any())
+                {
+                    return new Contact();
+                }
+                
+                return contactFound.SingleOrDefault();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
     }
 }

@@ -56,14 +56,14 @@ namespace SalonAPI.Controllers
                 return NotFound();
             }
             
-            // TODO: auto map this to reponse object
-            return Ok(bookingRecord);
+            return Ok(_mapper.Map<BookingResponse>(bookingRecord));
         }
         
         [HttpPost(ApiRoutes.Appointment.Cancel)]
         public async Task<IActionResult> Cancel([FromBody] BookingRecord bookingRequest)
         {
             // Provide phone number and date
+            
             
             var bookingRecord = new BookingRecord();
             
@@ -77,7 +77,14 @@ namespace SalonAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet(ApiRoutes.Appointment.ViewBookings)] // Managers view
+        [HttpPost(ApiRoutes.Appointment.GetAppointment)]
+        public async Task<IActionResult> GetAppointment([FromBody] Contact contact)
+        {
+            // Return a list of bookingRecords
+            return NotFound();
+        }
+        
+        [HttpGet(ApiRoutes.Appointment.ViewBooking)] // Managers view
         public async Task<IActionResult> GetAll(string dateFrom, string dateTo)
         {
             // Defaults to the coming 2 weeks

@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace SalonAPI.Domain
+﻿namespace Contracts.V1.Requests
 {
-    public class Contact
+    public class ContactRequest
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

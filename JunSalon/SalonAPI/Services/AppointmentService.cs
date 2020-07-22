@@ -71,22 +71,38 @@ namespace SalonAPI.Services
 
         public async Task<bool> BookAppointment(BookingRecord bookingRecord)
         {
-            // insert into contact - // TODO: check for duplicates before insert, use DB trigger? return -1 if duplicate
-            var contactID =  await _contactRepository.AddContact(bookingRecord.contact);
-            
-            // insert into bookingRecord
-            var added = await _appointmentRepository.AddAppointment(bookingRecord, contactID);
+            var timeSlotAvailablity = await _appointmentRepository.VerifyTimeSlotAvailable(bookingRecord);
 
+            if (timeSlotAvailablity)
+            {
+                // TODO: log time slot unavailable
+                return false;
+            }
+
+            var existingContact = await _contactRepository.CheckDuplicate(bookingRecord.contact);
+
+            var contactID = existingContact.ID != 0 ? existingContact.ID : await _contactRepository.AddContact(bookingRecord.contact);
+            
+            var added = await _appointmentRepository.AddAppointment(bookingRecord, contactID);
+            // TODO: log added successful
             return added;
         }
 
         public async Task<bool> CancelAppointment(BookingRecord bookingRecord)
         {
             // delete from bookingRecord
-            
-            // check date is in the future
-            
             throw new System.NotImplementedException();
+        }
+
+        public async Task<bool> GetAppointments(Contact contactDetails)
+        {
+            // get contact ID
+            
+            // search bookingRecord using ContactID, where date is in the future,
+            
+            // Return a list of appointments for that user
+            
+            throw new NotImplementedException();
         }
 
         public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
