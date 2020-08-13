@@ -177,6 +177,42 @@ namespace SalonAPI.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<List<BookingRecord>> GetAppointments(int contactID)
+        {
+            const string selectBookingRecords = @"
+            SELECT
+                ID,
+                TimeSlotID,
+                Date,
+                Description
+            FROM bookingrecord
+            WHERE ContactID = @ContactID
+                AND Date > NOW()";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
+                {
+                    ContactID = contactID
+                });
+
+                return bookingRecords.ToList();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
         public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();

@@ -94,10 +94,12 @@ namespace SalonAPI.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> GetAppointments(Contact contactDetails)
+        public async Task<List<BookingRecord>> GetAppointments(Contact contactDetails)
         {
-            // get contact ID
-            
+            // TODO: get contact ID by phone and name - Add repo method
+            var contactID = 0;
+
+            return await _appointmentRepository.GetAppointments(contactID);
             // search bookingRecord using ContactID, where date is in the future,
             
             // Return a list of appointments for that user
@@ -105,6 +107,7 @@ namespace SalonAPI.Services
             throw new NotImplementedException();
         }
 
+        // TODO: For management
         public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();

@@ -62,8 +62,8 @@ namespace SalonAPI.Controllers
         [HttpPost(ApiRoutes.Appointment.Cancel)]
         public async Task<IActionResult> Cancel([FromBody] BookingRecord bookingRequest)
         {
-            // Provide phone number and date
-            
+            // TODO: Add cancelled column in DB
+            // TODO: Take booking record ID, set cancelled flag to true
             
             var bookingRecord = new BookingRecord();
             
@@ -80,7 +80,10 @@ namespace SalonAPI.Controllers
         [HttpPost(ApiRoutes.Appointment.GetAppointment)]
         public async Task<IActionResult> GetAppointment([FromBody] Contact contact)
         {
-            // Return a list of bookingRecords
+            var bookingRecords = await _appointmentervice.GetAppointments(contact);
+            
+            // TODO: return mapped booking records for this contact
+            
             return NotFound();
         }
         

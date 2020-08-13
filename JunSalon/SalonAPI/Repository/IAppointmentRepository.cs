@@ -15,6 +15,7 @@ namespace SalonAPI.Repository
         Task<bool> VerifyTimeSlotAvailable(BookingRecord bookingRecord);
         Task<bool> RemoveAppointment(BookingRecord bookingRecord);
 
+        Task<List<BookingRecord>> GetAppointments(int contactID);
         Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);
     }
     
