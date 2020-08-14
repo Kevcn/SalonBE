@@ -88,23 +88,21 @@ namespace SalonAPI.Services
             return added;
         }
 
-        public async Task<bool> CancelAppointment(BookingRecord bookingRecord)
+        public async Task<bool> CancelAppointment(int bookingID)
         {
-            // delete from bookingRecord
-            throw new System.NotImplementedException();
+            return await _appointmentRepository.CancelAppointment(bookingID);
         }
 
         public async Task<List<BookingRecord>> GetAppointments(Contact contactDetails)
         {
-            // TODO: get contact ID by phone and name - Add repo method
-            var contactID = 0;
+            var contactID = await _appointmentRepository.GetContactID(contactDetails);
+
+            if (contactID == 0)
+            {
+                return new List<BookingRecord>();
+            }
 
             return await _appointmentRepository.GetAppointments(contactID);
-            // search bookingRecord using ContactID, where date is in the future,
-            
-            // Return a list of appointments for that user
-            
-            throw new NotImplementedException();
         }
 
         // TODO: For management

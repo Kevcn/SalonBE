@@ -10,7 +10,7 @@ namespace SalonAPI.Services
         Task<List<DayAvailability>> GetDayAvailablity(DateTime date);
         Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date);
         Task<bool> BookAppointment(BookingRecord bookingRecord);
-        Task<bool> CancelAppointment(BookingRecord bookingRecord);
+        Task<bool> CancelAppointment(int bookingID);
         Task<List<BookingRecord>> GetAppointments(Contact contactDetails);
         Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);
     }

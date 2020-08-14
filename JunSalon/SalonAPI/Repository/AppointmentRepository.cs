@@ -100,13 +100,15 @@ namespace SalonAPI.Repository
                 TimeSlotID, 
                 Date, 
                 Description,
-                CreatedDate) 
+                CreatedDate,
+                Cancel) 
             VALUES (
                 @ContactID, 
                 @TimeSlotID, 
                 @Date, 
                 @Description, 
-                @CreatedDate);";
+                @CreatedDate,
+                @Cancel);";
 
             try
             {
@@ -118,7 +120,8 @@ namespace SalonAPI.Repository
                         TimeslotID = bookingRecord.TimeSlotID,
                         Date = bookingRecord.Date,
                         Description = bookingRecord.Description,
-                        CreatedDate = DateTime.Now.ToShortDateString()
+                        CreatedDate = DateTime.Now.ToShortDateString(),
+                        Cancel = false
                     });
 
                 return inserted > 0;
@@ -172,9 +175,74 @@ namespace SalonAPI.Repository
             }
         }
 
-        public async Task<bool> RemoveAppointment(BookingRecord bookingRecord)
+        public async Task<bool> CancelAppointment(int bookingID)
         {
+            //TODO: set cancel to true 
+            const string cancelAppointment = @"
+            UPDATE bookingrecord
+                SET Cancel = true
+            WHERE ID = @ID";
+
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var cancelled = await _connection.ExecuteAsync(cancelAppointment,
+                    new
+                    {
+                        ID = bookingID
+                    });
+
+                return cancelled == 1;
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetContactID(Contact contact)
+        {
+            const string getContactID = @"
+            SELECT
+                ID
+            FROM contact
+            WHERE Name = @Name
+                AND Phone = @Phone";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var contactID = await _connection.QueryAsync<int>(getContactID, new
+                {
+                    Name = contact.Name,
+                    Phone = contact.Phone
+                });
+
+                var contactId = contactID.ToList();
+                return contactId.Any() ? contactId.Single() : 0;
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public async Task<List<BookingRecord>> GetAppointments(int contactID)
@@ -187,7 +255,7 @@ namespace SalonAPI.Repository
                 Description
             FROM bookingrecord
             WHERE ContactID = @ContactID
-                AND Date > NOW()";
+                AND Date < NOW()"; // TODO: change this to > now();
             
             try
             {

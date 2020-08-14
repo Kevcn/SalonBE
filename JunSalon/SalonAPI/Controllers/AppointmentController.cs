@@ -60,31 +60,25 @@ namespace SalonAPI.Controllers
         }
         
         [HttpPost(ApiRoutes.Appointment.Cancel)]
-        public async Task<IActionResult> Cancel([FromBody] BookingRecord bookingRequest)
+        public async Task<IActionResult> Cancel([FromBody] int bookingID)
         {
-            // TODO: Add cancelled column in DB
-            // TODO: Take booking record ID, set cancelled flag to true
-            
-            var bookingRecord = new BookingRecord();
-            
-            var cancelled = await _appointmentervice.CancelAppointment(bookingRecord);
+            var cancelled = await _appointmentervice.CancelAppointment(bookingID);
 
             if (!cancelled)
             {
-                return NoContent();
+                // TODO: what to return for a failed operation?
+                return NotFound();
             }
 
-            return NotFound();
+            return Ok();
         }
 
         [HttpPost(ApiRoutes.Appointment.GetAppointment)]
         public async Task<IActionResult> GetAppointment([FromBody] Contact contact)
         {
             var bookingRecords = await _appointmentervice.GetAppointments(contact);
-            
-            // TODO: return mapped booking records for this contact
-            
-            return NotFound();
+            //TODO: map to response object
+            return Ok(bookingRecords);
         }
         
         [HttpGet(ApiRoutes.Appointment.ViewBooking)] // Managers view
