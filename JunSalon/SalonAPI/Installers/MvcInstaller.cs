@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using SalonAPI.Authorization;
 using SalonAPI.Configuration;
 using SalonAPI.Filters;
 using SalonAPI.Services;
@@ -59,28 +58,6 @@ namespace SalonAPI.Installers
                     options.SaveToken = true;
                     options.TokenValidationParameters = tokenValidationParameters;
                 });
-            
-            // ******************* Identity setup *******************
-            // ******************* Identity setup *******************
-            // ******************* Identity setup *******************
-            services.AddScoped<IIdentityService, IdentityService>();
-
-
-            // ******************* For Claims and Roles Authorization *******************
-            // ******************* For Claims and Roles Authorization *******************
-            // ******************* For Claims and Roles Authorization *******************
-            services.AddAuthorization(options => 
-            {
-                // Claim example 
-                options.AddPolicy("AccessToStocks", policy => policy.RequireClaim("GetStock", "true"));
-
-                // Custom policy
-                options.AddPolicy("GmailUser", policy => policy.AddRequirements(new UserOfGmail("gmail.com")));
-            });
-
-            // Custom policy
-            services.AddSingleton<IAuthorizationHandler, GmailHandler>();
-
 
             // ******************* AutoMapper for response/domain/DTO objects*******************
             // ******************* AutoMapper for response/domain/DTO objects*******************

@@ -63,6 +63,20 @@ namespace SalonAPI.Controllers
             return Ok(_mapper.Map<BookingResponse>(bookingRecord));
         }
         
+        [HttpGet(ApiRoutes.Appointment.Get)]
+        public async Task<IActionResult> Get([FromRoute] int bookingID)
+        {
+            var bookingRecord = await _appointmentService.GetAppointment(bookingID);
+
+            if (bookingRecord.ID == 0)
+            {
+                return NotFound();
+            }
+            
+            return Ok(_mapper.Map<BookingResponse>(bookingRecord));
+        }
+
+        
         [HttpPost(ApiRoutes.Appointment.Cancel)]
         public async Task<IActionResult> Cancel([FromBody] int bookingID)
         {
@@ -77,8 +91,15 @@ namespace SalonAPI.Controllers
         }
 
         [HttpPost(ApiRoutes.Appointment.GetAppointment)]
-        public async Task<IActionResult> GetAppointment([FromBody] Contact contact)
+        public async Task<IActionResult> GetAppointment([FromBody] ContactRequest contactRequest)
         {
+            var contact = new Contact
+            {
+                Name = contactRequest.Name,
+                Phone = contactRequest.Phone,
+                Email = contactRequest.Email
+            };
+            
             var bookingRecords = await _appointmentService.GetAppointmentsByContact(contact);
             
             return Ok(_mapper.Map<List<BookingResponse>>(bookingRecords));
@@ -87,8 +108,6 @@ namespace SalonAPI.Controllers
         [HttpGet(ApiRoutes.Appointment.ViewBooking)] // Managers view
         public async Task<IActionResult> GetAll(DateTime dateFrom, DateTime dateTo)
         {
-            // Defaults to the coming 2 weeks
-
             var bookingRecords = await _appointmentService.GetAppointmentByDate(dateFrom, dateTo);
             
             return Ok(_mapper.Map<List<BookingResponse>>(bookingRecords));

@@ -88,6 +88,11 @@ namespace SalonAPI.Services
             return added;
         }
 
+        public async Task<BookingRecord> GetAppointment(int bookingID)
+        {
+            return await _appointmentRepository.GetAppointmentByID(bookingID);
+        }
+
         public async Task<bool> CancelAppointment(int bookingID)
         {
             return await _appointmentRepository.CancelAppointment(bookingID);

@@ -35,6 +35,8 @@ namespace Contracts.V1
 
             public const string Book = Base + "/Book";
 
+            public const string Get = Base + "/Book/{bookingID}";
+            
             public const string Cancel = Base + "/Cancel";
             
             public const string ViewBooking = Base + "/ViewBooking";

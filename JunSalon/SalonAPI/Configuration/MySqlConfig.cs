@@ -2,6 +2,6 @@
 {
     public class MySqlConfig
     {
-        public string Local { get; set; }
+        public string ConnectionString { get; set; }
     }
 }

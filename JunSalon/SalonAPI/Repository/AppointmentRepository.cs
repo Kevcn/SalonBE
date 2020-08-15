@@ -36,7 +36,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     StartDate = startDate,
@@ -70,7 +70,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     Date = date
@@ -112,7 +112,7 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var inserted = await _connection.ExecuteAsync(addAppointment,
                     new
                     {
@@ -152,7 +152,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<int>(verifyTimeSlot, new
                 {
                     Date = bookingRecord.Date,
@@ -184,7 +184,7 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var cancelled = await _connection.ExecuteAsync(cancelAppointment,
                     new
                     {
@@ -221,7 +221,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     ContactID = contactID
@@ -262,7 +262,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(selectBookingRecords, 
                     map: (bookingRecord, contact) =>
                     {
@@ -296,20 +296,36 @@ namespace SalonAPI.Repository
         public async Task<BookingRecord> GetAppointmentByID(int bookingID)
         {
             const string selectBookingRecord = @"
-            SELECT
-                *
-            FROM bookingrecord
-            WHERE ID = @BookingID";
+            SELECT 
+	            b.ID,	
+	            TimeSlotID,
+	            Date,
+	            Description,
+                Name,
+	            Phone,
+	            Email
+            FROM bookingrecord b
+            JOIN contact c
+            ON b.ContactID = c.ID
+            WHERE b.ID = @BookingID";
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
-                var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecord, new
-                {
-                    BookingID = bookingID
-                });
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                var bookingRecord = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(selectBookingRecord, 
+                    map: (record, contact) =>
+                    {
+                        record.contact = contact;
+                        return record;
+                    },
+                    splitOn: "Name",
+                    param: new
+                    {
+                        BookingID = bookingID
+                    }
+                );
 
-                return bookingRecords.Single();
+                return bookingRecord.Any() ?  bookingRecord.Single() : new BookingRecord();
             }
             catch (MySqlException exception)
             {

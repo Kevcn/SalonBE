@@ -30,7 +30,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var contactID = await _connection.QueryAsync<int>(getContactID, new
                 {
                     Name = contact.Name,
@@ -71,7 +71,7 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var contactID = await _connection.QueryAsync<int>(insertContactStatement,
                     new
                     {
@@ -108,7 +108,7 @@ namespace SalonAPI.Repository
             
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
                 var contactFound = await _connection.QueryAsync<Contact>(checkDuplicateContact, new
                 {
                     Name = contact.Name,
