@@ -106,9 +106,9 @@ namespace SalonAPI.Services
         }
 
         // TODO: For management
-        public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
+        public async Task<List<BookingRecord>> GetAppointmentByDate(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await _appointmentRepository.GetAppointmentsByDate(startDate, endDate);
         }
     }
 }

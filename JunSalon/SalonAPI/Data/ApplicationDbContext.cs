@@ -14,7 +14,6 @@ namespace SalonAPI.Data
         {
         }
 
-        public DbSet<Stock> Stocks { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

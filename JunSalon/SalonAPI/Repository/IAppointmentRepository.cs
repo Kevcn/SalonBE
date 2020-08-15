@@ -20,7 +20,7 @@ namespace SalonAPI.Repository
         Task<List<BookingRecord>> GetAppointmentsByContactID(int contactID);
         
         // Management
-        Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);
+        Task<List<BookingRecord>> GetAppointmentsByDate(DateTime startDate, DateTime endDate);
 
         Task<BookingRecord> GetAppointmentByID(int bookingID);
     }

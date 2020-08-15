@@ -12,6 +12,6 @@ namespace SalonAPI.Services
         Task<bool> BookAppointment(BookingRecord bookingRecord);
         Task<bool> CancelAppointment(int bookingID);
         Task<List<BookingRecord>> GetAppointmentsByContact(Contact contactDetails);
-        Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);
+        Task<List<BookingRecord>> GetAppointmentByDate(DateTime startDate, DateTime endDate);
     }
 }

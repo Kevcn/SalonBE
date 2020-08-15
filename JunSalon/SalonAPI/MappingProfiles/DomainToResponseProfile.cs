@@ -9,8 +9,6 @@ namespace SalonAPI.MappingProfiles
     {
         public DomainToResponseProfile()
         {
-            // Maps domain to response
-            CreateMap<Stock, StockResponse>();
             CreateMap<TimeAvailability, TimeAvailabilityResponse>();
             CreateMap<DayAvailability, DayAvailabilityResponse>();
             CreateMap<BookingRecord, BookingResponse>()

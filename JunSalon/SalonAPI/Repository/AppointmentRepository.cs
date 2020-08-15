@@ -243,14 +243,86 @@ namespace SalonAPI.Repository
             }
         }
 
-        public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
+        public async Task<List<BookingRecord>> GetAppointmentsByDate(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            const string selectBookingRecords = @"
+            SELECT 
+	            b.ID,
+                TimeSlotID,
+	            Date,
+	            Description,
+	            Name,                
+	            Phone,
+	            Email	            
+            FROM bookingrecord b
+            JOIN contact c
+            ON b.ContactID = c.ID
+            WHERE Date >= @StartDate
+                AND	Date <= @EndDate";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(selectBookingRecords, 
+                    map: (bookingRecord, contact) =>
+                    {
+                        bookingRecord.contact = contact;
+                        return bookingRecord;
+                    },
+                    splitOn: "Name",
+                    param: new
+                    {
+                        StartDate = startDate,
+                        EndDate = endDate
+                    }
+                    );
+
+                return bookingRecords.ToList();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public async Task<BookingRecord> GetAppointmentByID(int bookingID)
         {
-            throw new NotImplementedException();
+            const string selectBookingRecord = @"
+            SELECT
+                *
+            FROM bookingrecord
+            WHERE ID = @BookingID";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecord, new
+                {
+                    BookingID = bookingID
+                });
+
+                return bookingRecords.Single();
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
         }
     }
 }
