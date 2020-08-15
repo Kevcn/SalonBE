@@ -38,22 +38,26 @@ namespace SalonAPI.Controllers
         }
         
         [HttpPost(ApiRoutes.Appointment.Book)]
-        public async Task<IActionResult> Book([FromBody] BookingRecord bookingRecord)
+        public async Task<IActionResult> Book([FromBody] BookingRecordRequest bookingRecordRequest)
         {
-            // Takes Name, phone and date, timeslot ID
-            
-            // TODO: create bookingrecordRequest object, new bookingrecord from that
-            // var bookingRecord = new BookingRecord
-            // {
-            //     contact = bookingRequest
-            // };
+            var bookingRecord = new BookingRecord
+            {
+                contact = new Contact
+                {
+                    Name = bookingRecordRequest.contact.Name,
+                    Phone = bookingRecordRequest.contact.Phone,
+                    Email = bookingRecordRequest.contact.Email
+                },
+                TimeSlotID = bookingRecordRequest.TimeSlotID,
+                Date = bookingRecordRequest.Date,
+                Description = bookingRecordRequest.Description
+            };
             
             var booked = await _appointmentervice.BookAppointment(bookingRecord);
 
             if (!booked)
             {
-                // TODO: what to return for failed insert?
-                return NotFound();
+                return BadRequest(new {error = "Book appointment failed"});
             }
             
             return Ok(_mapper.Map<BookingResponse>(bookingRecord));
@@ -66,8 +70,7 @@ namespace SalonAPI.Controllers
 
             if (!cancelled)
             {
-                // TODO: what to return for a failed operation?
-                return NotFound();
+                return BadRequest(new {error = "Cancel appointment failed"});
             }
 
             return Ok();
@@ -76,9 +79,10 @@ namespace SalonAPI.Controllers
         [HttpPost(ApiRoutes.Appointment.GetAppointment)]
         public async Task<IActionResult> GetAppointment([FromBody] Contact contact)
         {
-            var bookingRecords = await _appointmentervice.GetAppointments(contact);
+            var bookingRecords = await _appointmentervice.GetAppointmentsByContact(contact);
             //TODO: map to response object
-            return Ok(bookingRecords);
+            
+            return Ok(_mapper.Map<List<BookingResponse>>(bookingRecords));
         }
         
         [HttpGet(ApiRoutes.Appointment.ViewBooking)] // Managers view

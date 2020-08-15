@@ -17,11 +17,12 @@ namespace SalonAPI.Repository
 
         // Cancel appointment
         Task<bool> CancelAppointment(int bookingID);
-        Task<int> GetContactID(Contact contact);
-        Task<List<BookingRecord>> GetAppointments(int contactID);
+        Task<List<BookingRecord>> GetAppointmentsByContactID(int contactID);
         
         // Management
         Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate);
+
+        Task<BookingRecord> GetAppointmentByID(int bookingID);
     }
     
 }

@@ -159,7 +159,7 @@ namespace SalonAPI.Repository
                     TimeSlotID = bookingRecord.TimeSlotID
                 });
 
-                return bookingRecords.Single() > 0;
+                return bookingRecords.Single() == 0;
             }
             catch (MySqlException exception)
             {
@@ -177,7 +177,6 @@ namespace SalonAPI.Repository
 
         public async Task<bool> CancelAppointment(int bookingID)
         {
-            //TODO: set cancel to true 
             const string cancelAppointment = @"
             UPDATE bookingrecord
                 SET Cancel = true
@@ -206,46 +205,9 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            
-            throw new NotImplementedException();
         }
-
-        public async Task<int> GetContactID(Contact contact)
-        {
-            const string getContactID = @"
-            SELECT
-                ID
-            FROM contact
-            WHERE Name = @Name
-                AND Phone = @Phone";
-            
-            try
-            {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
-                var contactID = await _connection.QueryAsync<int>(getContactID, new
-                {
-                    Name = contact.Name,
-                    Phone = contact.Phone
-                });
-
-                var contactId = contactID.ToList();
-                return contactId.Any() ? contactId.Single() : 0;
-            }
-            catch (MySqlException exception)
-            {
-                // TODO: log expection
-                Console.WriteLine(exception);
-                throw;
-            }
-            catch(InvalidOperationException exception)
-            {
-                // TODO: log expection
-                Console.WriteLine(exception);
-                throw;
-            }
-        }
-
-        public async Task<List<BookingRecord>> GetAppointments(int contactID)
+        
+        public async Task<List<BookingRecord>> GetAppointmentsByContactID(int contactID)
         {
             const string selectBookingRecords = @"
             SELECT
@@ -282,6 +244,11 @@ namespace SalonAPI.Repository
         }
 
         public async Task<BookingRecord> GetRecord(DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<BookingRecord> GetAppointmentByID(int bookingID)
         {
             throw new NotImplementedException();
         }

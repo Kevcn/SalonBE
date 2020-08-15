@@ -55,12 +55,12 @@ namespace SalonAPI.Services
 
             // if timeslot exists, return false
             
-            for (int i = 0; i < numberOfTimeSlots; i++)
+            for (int i = 1; i <= numberOfTimeSlots; i++)
             {
                 var availablity = new TimeAvailability
                 {
                     TimeSlotID = i,
-                    Available = bookingRecords.Any(x => x.TimeSlotID == i) // TODO: THIS LOGIC IS WRONG
+                    Available = bookingRecords.All(x => x.TimeSlotID != i)
                 };
                 
                 availablities.Add(availablity);
@@ -73,7 +73,7 @@ namespace SalonAPI.Services
         {
             var timeSlotAvailablity = await _appointmentRepository.VerifyTimeSlotAvailable(bookingRecord);
 
-            if (timeSlotAvailablity)
+            if (!timeSlotAvailablity)
             {
                 // TODO: log time slot unavailable
                 return false;
@@ -93,16 +93,16 @@ namespace SalonAPI.Services
             return await _appointmentRepository.CancelAppointment(bookingID);
         }
 
-        public async Task<List<BookingRecord>> GetAppointments(Contact contactDetails)
+        public async Task<List<BookingRecord>> GetAppointmentsByContact(Contact contactDetails)
         {
-            var contactID = await _appointmentRepository.GetContactID(contactDetails);
+            var contactID = await _contactRepository.GetContactID(contactDetails);
 
             if (contactID == 0)
             {
                 return new List<BookingRecord>();
             }
 
-            return await _appointmentRepository.GetAppointments(contactID);
+            return await _appointmentRepository.GetAppointmentsByContactID(contactID);
         }
 
         // TODO: For management

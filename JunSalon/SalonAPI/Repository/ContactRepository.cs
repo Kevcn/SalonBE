@@ -18,7 +18,42 @@ namespace SalonAPI.Repository
         {
             _mySqlConfig = mySqlConfig.Value;
         }
-        
+
+        public async Task<int> GetContactID(Contact contact)
+        {
+            const string getContactID = @"
+            SELECT
+                ID
+            FROM contact
+            WHERE Name = @Name
+                AND Phone = @Phone";
+            
+            try
+            {
+                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.Local);
+                var contactID = await _connection.QueryAsync<int>(getContactID, new
+                {
+                    Name = contact.Name,
+                    Phone = contact.Phone
+                });
+
+                var contactId = contactID.ToList();
+                return contactId.Any() ? contactId.Single() : 0;
+            }
+            catch (MySqlException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+            catch(InvalidOperationException exception)
+            {
+                // TODO: log expection
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
         public async Task<int> AddContact(Contact contact)
         {
             const string insertContactStatement = @"

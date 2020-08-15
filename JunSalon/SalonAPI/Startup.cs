@@ -30,7 +30,6 @@ namespace SalonAPI
             var installers = typeof(Startup).Assembly.ExportedTypes.Where(x => typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
 
             installers.ForEach(installer => installer.InstallServices(services, Configuration));
-            services.AddScoped<IStockService, StockService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
