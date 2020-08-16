@@ -18,7 +18,7 @@ namespace SalonAPI.Services
             _contactRepository = contactRepository;
         }
 
-        public async Task<List<DayAvailability>> GetDayAvailablity(DateTime date)
+        public async Task<List<DayAvailability>> GetDayavailability(DateTime date)
         {
             var availablities = new List<DayAvailability>();
             
@@ -31,19 +31,19 @@ namespace SalonAPI.Services
             {
                 var currentDate = date.AddDays(i);
                 
-                var availablity = new DayAvailability
+                var availability = new DayAvailability
                 {
                     date = currentDate,
                     Available = bookingRecords.Count(x => x.Date == currentDate) < 16
                 };
                 
-                availablities.Add(availablity);
+                availablities.Add(availability);
             }
 
             return availablities;
         }
 
-        public async Task<List<TimeAvailability>> GetTimeAvailablity(DateTime date)
+        public async Task<List<TimeAvailability>> GetTimeavailability(DateTime date)
         {
             // query where date = date, get a list of bookingRecords, turn that into a list timeAvailable
 
@@ -57,13 +57,13 @@ namespace SalonAPI.Services
             
             for (int i = 1; i <= numberOfTimeSlots; i++)
             {
-                var availablity = new TimeAvailability
+                var availability = new TimeAvailability
                 {
                     TimeSlotID = i,
                     Available = bookingRecords.All(x => x.TimeSlotID != i)
                 };
                 
-                availablities.Add(availablity);
+                availablities.Add(availability);
             }
             
             return availablities;
@@ -71,9 +71,9 @@ namespace SalonAPI.Services
 
         public async Task<bool> BookAppointment(BookingRecord bookingRecord)
         {
-            var timeSlotAvailablity = await _appointmentRepository.VerifyTimeSlotAvailable(bookingRecord);
+            var timeSlotavailability = await _appointmentRepository.VerifyTimeSlotAvailable(bookingRecord);
 
-            if (!timeSlotAvailablity)
+            if (!timeSlotavailability)
             {
                 // TODO: log time slot unavailable
                 return false;

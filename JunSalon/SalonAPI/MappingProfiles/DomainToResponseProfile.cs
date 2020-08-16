@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Contracts.V1.Responses;
+using SalonAPI.Contracts.V1.Responses;
 using SalonAPI.Domain;
 
 namespace SalonAPI.MappingProfiles

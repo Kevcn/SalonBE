@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
-using Contracts.V1;
-using Contracts.V1.Requests;
-using Contracts.V1.Responses;
 using Microsoft.AspNetCore.Mvc;
+using SalonAPI.Contracts.V1;
+using SalonAPI.Contracts.V1.Requests;
+using SalonAPI.Contracts.V1.Responses;
 using SalonAPI.Domain;
 using SalonAPI.Services;
 
@@ -23,18 +23,18 @@ namespace SalonAPI.Controllers
             _appointmentService = appointmentService;
         }
 
-        [HttpGet(ApiRoutes.Appointment.GetDayAvailablity)]
-        public async Task<IActionResult> GetDayAvailablity([FromRoute] DateTime date)
+        [HttpGet(ApiRoutes.Appointment.GetDayavailability)]
+        public async Task<IActionResult> GetDayavailability([FromRoute] DateTime date)
         {
-            var availablity = await _appointmentService.GetDayAvailablity(date);
-            return Ok(_mapper.Map<List<DayAvailabilityResponse>>(availablity));
+            var availability = await _appointmentService.GetDayavailability(date);
+            return Ok(_mapper.Map<List<DayAvailabilityResponse>>(availability));
         }
         
-        [HttpGet(ApiRoutes.Appointment.GetTimeAvailablity)]
-        public async Task<IActionResult> GetTimeAvailablity([FromRoute] DateTime date)
+        [HttpGet(ApiRoutes.Appointment.GetTimeavailability)]
+        public async Task<IActionResult> GetTimeavailability([FromRoute] DateTime date)
         {
-            var availablity = await _appointmentService.GetTimeAvailablity(date);
-            return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(availablity));
+            var availability = await _appointmentService.GetTimeavailability(date);
+            return Ok(_mapper.Map<List<TimeAvailabilityResponse>>(availability));
         }
         
         [HttpPost(ApiRoutes.Appointment.Book)]
@@ -90,7 +90,7 @@ namespace SalonAPI.Controllers
             return Ok();
         }
 
-        [HttpPost(ApiRoutes.Appointment.GetAppointment)]
+        [HttpPost(ApiRoutes.Appointment.GetByContact)]
         public async Task<IActionResult> GetAppointment([FromBody] ContactRequest contactRequest)
         {
             var contact = new Contact
@@ -105,7 +105,7 @@ namespace SalonAPI.Controllers
             return Ok(_mapper.Map<List<BookingResponse>>(bookingRecords));
         }
         
-        [HttpGet(ApiRoutes.Appointment.ViewBooking)] // Managers view
+        [HttpGet(ApiRoutes.Appointment.GetByDate)] // Managers view
         public async Task<IActionResult> GetAll(DateTime dateFrom, DateTime dateTo)
         {
             var bookingRecords = await _appointmentService.GetAppointmentByDate(dateFrom, dateTo);

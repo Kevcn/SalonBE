@@ -7,7 +7,7 @@ namespace SalonAPI.Repository
 {
     public interface IAppointmentRepository
     {
-        // Check availablity 
+        // Check availability 
         Task<List<BookingRecord>> GetAppointmentsByDay(DateTime startDate, DateTime endDate);
         Task<List<BookingRecord>> GetSingleDayAppointments(DateTime date);
 

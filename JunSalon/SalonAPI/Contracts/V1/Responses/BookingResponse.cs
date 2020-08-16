@@ -1,7 +1,6 @@
 ﻿using System;
-using Contracts.V1.Requests;
 
-namespace Contracts.V1.Responses
+namespace SalonAPI.Contracts.V1.Responses
 {
     public class BookingResponse
     {

@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SalonAPI.Configuration;
-using SalonAPI.Filters;
-using SalonAPI.Services;
 
 namespace SalonAPI.Installers
 {
@@ -20,9 +18,9 @@ namespace SalonAPI.Installers
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
             // New to .NET Core 3.0, includes services required for API only - Authorization, Validation, formatters CORS... excluded Razor pages or view rending
-            services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+            services.AddControllers()
                 // RegisterValidatorsFromAssemblyContaining -> This only works with the validator class derived from AbstractValidator
-                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fluentValidationMvcConfiguration => fluentValidationMvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
             
             // ******************* JWT setup *******************
             // ******************* JWT setup *******************

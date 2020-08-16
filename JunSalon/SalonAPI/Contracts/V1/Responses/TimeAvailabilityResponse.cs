@@ -1,4 +1,4 @@
-﻿namespace Contracts.V1.Responses
+﻿namespace SalonAPI.Contracts.V1.Responses
 {
     public class TimeAvailabilityResponse
     {

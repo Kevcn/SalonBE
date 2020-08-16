@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Contracts.V1.Requests
+namespace SalonAPI.Contracts.V1.Requests
 {
     public class BookingRecordRequest
     {

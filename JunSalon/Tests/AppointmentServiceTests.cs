@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task GetDayAvailablity_ShouldHaveAvailablity_WhenLessThan16Appointments()
+        public async Task GetDayavailability_ShouldHaveavailability_WhenLessThan16Appointments()
         {
             var date = new DateTime(2020, 7, 23);
             var endDate = date.AddDays(14);
@@ -47,13 +47,13 @@ namespace Tests
 
             _appointmentRepoMock.Setup(x => x.GetAppointmentsByDay(date, endDate)).ReturnsAsync(dummyBookingsRecords);
             
-            var availablities = await _appointmentService.GetDayAvailablity(date);
+            var availablities = await _appointmentService.GetDayavailability(date);
 
             Assert.True(availablities.First().Available);
         }
         
         [Fact]
-        public async Task GetDayAvailablity_ShouldHaveNoAvailablity_WhenThereAre16Appointments()
+        public async Task GetDayavailability_ShouldHaveNoavailability_WhenThereAre16Appointments()
         {
             var date = new DateTime(2020, 7, 23);
             var endDate = date.AddDays(14);
@@ -70,13 +70,13 @@ namespace Tests
 
             _appointmentRepoMock.Setup(x => x.GetAppointmentsByDay(date, endDate)).ReturnsAsync(dummyBookingsRecords);
             
-            var availablities = await _appointmentService.GetDayAvailablity(date);
+            var availablities = await _appointmentService.GetDayavailability(date);
 
             Assert.False(availablities.First().Available);
         }
 
         [Fact]
-        public async Task GetTimeAvailablity_ShouldHaveCorrectAvailablity_ForEachTimeSlots()
+        public async Task GetTimeavailability_ShouldHaveCorrectavailability_ForEachTimeSlots()
         {
             var date = new DateTime(2020, 7, 23);
             var dummyBookingsRecords = new List<BookingRecord>
@@ -86,7 +86,7 @@ namespace Tests
 
             _appointmentRepoMock.Setup(x => x.GetSingleDayAppointments(date)).ReturnsAsync(dummyBookingsRecords);
 
-            var response = await _appointmentService.GetTimeAvailablity(date);
+            var response = await _appointmentService.GetTimeavailability(date);
 
             Assert.True(response[0].Available);
             Assert.False(response[1].Available);
@@ -99,9 +99,9 @@ namespace Tests
             var dummyBookingRecord = new BookingRecord();
             _appointmentRepoMock.Setup(x => x.VerifyTimeSlotAvailable(dummyBookingRecord)).ReturnsAsync(false);
 
-            var timeSlotAvailablity = await _appointmentService.BookAppointment(dummyBookingRecord);
+            var timeSlotavailability = await _appointmentService.BookAppointment(dummyBookingRecord);
 
-            Assert.False(timeSlotAvailablity);
+            Assert.False(timeSlotavailability);
         }
 
         [Fact]
