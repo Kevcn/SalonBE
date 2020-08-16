@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SalonAPI.Contracts.V1
+﻿namespace SalonAPI.Contracts.V1
 {
     public static class ApiRoutes
     {

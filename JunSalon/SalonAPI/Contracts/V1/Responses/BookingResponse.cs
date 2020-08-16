@@ -9,5 +9,6 @@ namespace SalonAPI.Contracts.V1.Responses
         public int TimeSlotID { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
+        public bool Cancel { get; set; }
     }
 }

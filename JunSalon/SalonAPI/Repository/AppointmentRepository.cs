@@ -32,7 +32,8 @@ namespace SalonAPI.Repository
                 Date 
             FROM bookingrecord 
             WHERE Date > @StartDate 
-                AND Date < @EndDate";
+                AND Date < @EndDate
+                AND Cancel = 0";
             
             try
             {
@@ -66,7 +67,8 @@ namespace SalonAPI.Repository
                 TimeSlotID, 
                 Date 
             FROM bookingrecord 
-            WHERE Date = @Date";
+            WHERE Date = @Date
+                AND Cancel = 0";
             
             try
             {
@@ -120,7 +122,7 @@ namespace SalonAPI.Repository
                         TimeslotID = bookingRecord.TimeSlotID,
                         Date = bookingRecord.Date,
                         Description = bookingRecord.Description,
-                        CreatedDate = DateTime.Now.ToShortDateString(),
+                        CreatedDate = DateTime.Now,
                         Cancel = false
                     });
 
@@ -148,7 +150,8 @@ namespace SalonAPI.Repository
                 Count(*)
             FROM bookingrecord 
             WHERE Date = @Date
-                AND TimeSlotID = @TimeSlotID";
+                AND TimeSlotID = @TimeSlotID
+                AND Cancel = 0";
             
             try
             {
@@ -217,7 +220,8 @@ namespace SalonAPI.Repository
                 Description
             FROM bookingrecord
             WHERE ContactID = @ContactID
-                AND Date < NOW()"; // TODO: change this to > now();
+                AND Date > NOW()
+                AND Cancel = 0";
             
             try
             {
@@ -251,9 +255,10 @@ namespace SalonAPI.Repository
                 TimeSlotID,
 	            Date,
 	            Description,
+                Cancel,
 	            Name,                
 	            Phone,
-	            Email	            
+	            Email
             FROM bookingrecord b
             JOIN contact c
             ON b.ContactID = c.ID
@@ -301,6 +306,7 @@ namespace SalonAPI.Repository
 	            TimeSlotID,
 	            Date,
 	            Description,
+                Cancel,
                 Name,
 	            Phone,
 	            Email

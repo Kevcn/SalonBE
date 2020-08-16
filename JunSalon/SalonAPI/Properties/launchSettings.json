@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Financial_Market_API": {
+    "Salon_API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

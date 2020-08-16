@@ -1,0 +1,19 @@
+﻿version: '3.8'
+services:  
+  salonapi:
+    image: salonapi
+    ports:
+      - 8080:80
+    environment:
+      MySqlConfig__ConnectionString: Server=mysql;Database=salon;Uid=rw_user;Pwd=Warrington4
+  mysql:
+    image: mysql:5.7
+    command: --lower_case_table_names=1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 3306:3306
+    volumes:      
+      - D:\JunSalonSQL:/var/lib/mysql
+      - ./InitialiseDB/:/docker-entrypoint-initdb.d

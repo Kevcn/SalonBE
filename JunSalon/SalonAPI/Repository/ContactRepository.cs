@@ -78,7 +78,7 @@ namespace SalonAPI.Repository
                         Name = contact.Name,
                         Phone = contact.Phone,
                         Email = contact.Email,
-                        CreatedDate = DateTime.Now.ToShortDateString()
+                        CreatedDate = DateTime.Now
                     });
 
                 return contactID.Single();

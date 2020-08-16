@@ -71,6 +71,9 @@ namespace SalonAPI.Services
 
         public async Task<bool> BookAppointment(BookingRecord bookingRecord)
         {
+            var removeTimePortion = new TimeSpan(0, 0, 0);
+            bookingRecord.Date = bookingRecord.Date.Date + removeTimePortion;
+            
             var timeSlotavailability = await _appointmentRepository.VerifyTimeSlotAvailable(bookingRecord);
 
             if (!timeSlotavailability)
