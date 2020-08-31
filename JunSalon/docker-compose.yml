@@ -1,0 +1,8 @@
+﻿version: '3.8'
+services:  
+  salonapi:
+    image: salonapi
+    ports:
+      - 8080:80
+    environment:
+      MySqlConfig__ConnectionString: Server=junsalon.mysql.database.azure.com;Database=salon;Uid=rw_user;Pwd=Warrington4
