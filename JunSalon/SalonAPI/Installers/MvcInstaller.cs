@@ -22,41 +22,6 @@ namespace SalonAPI.Installers
                 // RegisterValidatorsFromAssemblyContaining -> This only works with the validator class derived from AbstractValidator
                 .AddFluentValidation(fluentValidationMvcConfiguration => fluentValidationMvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
             
-            // ******************* JWT setup *******************
-            // ******************* JWT setup *******************
-            // ******************* JWT setup *******************
-
-            var jwtSettings = new JwtSettings();
-            config.Bind(nameof(jwtSettings), jwtSettings);
-            services.AddSingleton(jwtSettings);
-
-            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                RequireExpirationTime = false,
-                ValidateLifetime = true
-            };
-
-            // Required to be accessed anywhere within the application
-            services.AddSingleton(tokenValidationParameters);
-
-            services.AddAuthentication(options =>
-                {
-                    // To use JWT as Authentication method
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                // Declare what the JWT token will look like
-                .AddJwtBearer(options =>
-                {
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = tokenValidationParameters;
-                });
-
             // ******************* AutoMapper for response/domain/DTO objects*******************
             // ******************* AutoMapper for response/domain/DTO objects*******************
             // ******************* AutoMapper for response/domain/DTO objects*******************

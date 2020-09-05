@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SalonAPI.Contracts.V1;
 using SalonAPI.Contracts.V1.Requests;
@@ -105,6 +106,7 @@ namespace SalonAPI.Controllers
             return Ok(_mapper.Map<List<BookingResponse>>(bookingRecords));
         }
         
+        [Authorize]
         [HttpGet(ApiRoutes.Appointment.GetByDate)] // Managers view
         public async Task<IActionResult> GetAll(DateTime dateFrom, DateTime dateTo)
         {

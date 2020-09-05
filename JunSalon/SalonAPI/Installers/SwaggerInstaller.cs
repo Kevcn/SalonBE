@@ -20,21 +20,28 @@ namespace SalonAPI.Installers
                 // OpenApiInfo is new to Swagger 5.0 that is compatible with .NET Core 3.0. used to be 'Info'
                 s.SwaggerDoc("v1", new OpenApiInfo { Title = "Jun Salon API", Version = "v1"});
 
-                // For JWT Authentication integration
-                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                s.AddSecurityDefinition("basic", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the bearer scheme",
                     Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
+                    Description = "Basic Authorization header using the Bearer scheme."
                 });
+ 
                 s.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {new OpenApiSecurityScheme{Reference = new OpenApiReference
                     {
-                        Id = "Bearer",
-                        Type = ReferenceType.SecurityScheme
-                    }}, new List<string>()}
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "basic"
+                            }
+                        },
+                        new string[] {}
+                    }
                 });
 
                 // Allow summary of endpoint to be displayed on UI

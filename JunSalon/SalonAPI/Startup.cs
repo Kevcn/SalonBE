@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication;
 using SalonAPI.Configuration;
 using SalonAPI.Installers;
 using SalonAPI.Repository;
@@ -33,6 +34,10 @@ namespace SalonAPI
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IIdentityService, IdentityService>();
+
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
             
             services.Configure<MySqlConfig>(Configuration.GetSection("MySqlConfig"));
             services.AddOptions();
