@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Authentication;
 using SalonAPI.Configuration;
+using SalonAPI.Helper;
 using SalonAPI.Installers;
 using SalonAPI.Repository;
 using SalonAPI.Services;
@@ -64,6 +65,13 @@ namespace SalonAPI
             app.UseRouting();
 
             app.UseHttpsRedirection();
+            
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
 
             // A must for JWT authentication, obvsiouly
             app.UseAuthentication();
