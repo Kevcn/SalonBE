@@ -113,7 +113,6 @@ namespace SalonAPI.Services
             return await _appointmentRepository.GetAppointmentsByContactID(contactID);
         }
 
-        // TODO: For management
         public async Task<List<BookingRecord>> GetAppointmentByDate(DateTime startDate, DateTime endDate)
         {
             return await _appointmentRepository.GetAppointmentsByDate(startDate, endDate);

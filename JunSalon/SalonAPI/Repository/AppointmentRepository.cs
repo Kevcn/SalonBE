@@ -263,7 +263,8 @@ namespace SalonAPI.Repository
             JOIN contact c
             ON b.ContactID = c.ID
             WHERE Date >= @StartDate
-                AND	Date <= @EndDate";
+                AND	Date <= @EndDate
+                AND Cancel = 0";
             
             try
             {
