@@ -115,7 +115,18 @@ namespace SalonAPI.Services
 
         public async Task<List<BookingRecord>> GetAppointmentByDate(DateTime startDate, DateTime endDate)
         {
-            return await _appointmentRepository.GetAppointmentsByDate(startDate, endDate);
+            var orderedRecords = new List<BookingRecord>();
+            
+            var records = await _appointmentRepository.GetAppointmentsByDate(startDate, endDate);
+            var groupByDay = records.GroupBy(x => x.Date);
+            foreach (var date in groupByDay)
+            {
+                var orderedDay = date.OrderBy(x => x.TimeSlotID);
+                
+                orderedRecords.AddRange(orderedDay.ToList());
+            }
+            
+            return orderedRecords;
         }
     }
 }

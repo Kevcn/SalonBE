@@ -107,7 +107,7 @@ namespace SalonAPI.Controllers
         }
         
         [Authorize]
-        [HttpGet(ApiRoutes.Appointment.GetByDate)] // Managers view
+        [HttpGet(ApiRoutes.Appointment.GetByDate)]
         public async Task<IActionResult> GetAll(DateTime dateFrom, DateTime dateTo)
         {
             var bookingRecords = await _appointmentService.GetAppointmentByDate(dateFrom, dateTo);

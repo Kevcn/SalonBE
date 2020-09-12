@@ -250,21 +250,22 @@ namespace SalonAPI.Repository
         public async Task<List<BookingRecord>> GetAppointmentsByDate(DateTime startDate, DateTime endDate)
         {
             const string selectBookingRecords = @"
-            SELECT 
-	            b.ID,
-                TimeSlotID,
-	            Date,
-	            Description,
-                Cancel,
-	            Name,                
-	            Phone,
-	            Email
-            FROM bookingrecord b
-            JOIN contact c
-            ON b.ContactID = c.ID
-            WHERE Date >= @StartDate
-                AND	Date <= @EndDate
-                AND Cancel = 0";
+                        SELECT 
+                            b.ID,
+                            TimeSlotID,
+                            Date,
+                            Description,
+                            Cancel,
+                            Name,                
+                            Phone,
+                            Email
+                        FROM bookingrecord b
+                        JOIN contact c
+                        ON b.ContactID = c.ID
+                        WHERE Date >= @StartDate
+                            AND	Date <= @EndDate
+                            AND Cancel = 0
+                        ORDER BY Date ";
             
             try
             {
