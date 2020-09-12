@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UserSecretsId>aspnet-Financial_Market_API-1B1970E5-17CB-4208-9C8F-219D219D3F6E</UserSecretsId>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using Dapper;
 using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
 using SalonAPI.Configuration;
 using SalonAPI.Domain;
 
@@ -27,14 +26,13 @@ namespace SalonAPI.Repository
             FROM contact
             WHERE Name = @Name
                 AND Phone = @Phone";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var contactID = await _connection.QueryAsync<int>(getContactID, new
                 {
-                    Name = contact.Name,
-                    Phone = contact.Phone
+                    contact.Name, contact.Phone
                 });
 
                 var contactId = contactID.ToList();
@@ -46,7 +44,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -71,18 +69,17 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var contactID = await _connection.QueryAsync<int>(insertContactStatement,
                     new
                     {
-                        Name = contact.Name,
-                        Phone = contact.Phone,
-                        Email = contact.Email,
+                        contact.Name,
+                        contact.Phone,
+                        contact.Email,
                         CreatedDate = DateTime.Now
                     });
 
                 return contactID.Single();
-
             }
             catch (MySqlException exception)
             {
@@ -90,7 +87,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -105,21 +102,17 @@ namespace SalonAPI.Repository
             FROM contact 
             WHERE Name = @Name 
                 AND Phone = @Phone";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var contactFound = await _connection.QueryAsync<Contact>(checkDuplicateContact, new
                 {
-                    Name = contact.Name,
-                    Phone = contact.Phone
+                    contact.Name, contact.Phone
                 });
 
-                if (!contactFound.Any())
-                {
-                    return new Contact();
-                }
-                
+                if (!contactFound.Any()) return new Contact();
+
                 return contactFound.SingleOrDefault();
             }
             catch (MySqlException exception)
@@ -128,7 +121,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);

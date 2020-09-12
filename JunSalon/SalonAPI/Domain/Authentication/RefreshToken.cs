@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace SalonAPI.Domain
 {
@@ -26,7 +23,6 @@ namespace SalonAPI.Domain
 
         public bool Invalidated { get; set; }
 
-        [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; }
+        [ForeignKey(nameof(UserId))] public IdentityUser User { get; set; }
     }
 }

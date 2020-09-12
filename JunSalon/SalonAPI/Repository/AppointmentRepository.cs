@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.Configuration;
-using MySql.Data.MySqlClient;
-using SalonAPI.Domain;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using SalonAPI.Configuration;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Dapper;
-
+using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
+using SalonAPI.Configuration;
+using SalonAPI.Domain;
 
 namespace SalonAPI.Repository
 {
@@ -21,7 +17,6 @@ namespace SalonAPI.Repository
         public AppointmentRepository(IOptions<MySqlConfig> mySqlConfig)
         {
             _mySqlConfig = mySqlConfig.Value;
-
         }
 
         public async Task<List<BookingRecord>> GetAppointmentsByDay(DateTime startDate, DateTime endDate)
@@ -34,10 +29,10 @@ namespace SalonAPI.Repository
             WHERE Date > @StartDate 
                 AND Date < @EndDate
                 AND Cancel = 0";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     StartDate = startDate,
@@ -52,7 +47,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -69,10 +64,10 @@ namespace SalonAPI.Repository
             FROM bookingrecord 
             WHERE Date = @Date
                 AND Cancel = 0";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     Date = date
@@ -86,7 +81,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -114,20 +109,19 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var inserted = await _connection.ExecuteAsync(addAppointment,
                     new
                     {
                         ContactID = contactID,
                         TimeslotID = bookingRecord.TimeSlotID,
-                        Date = bookingRecord.Date,
-                        Description = bookingRecord.Description,
+                        bookingRecord.Date,
+                        bookingRecord.Description,
                         CreatedDate = DateTime.Now,
                         Cancel = false
                     });
 
                 return inserted > 0;
-
             }
             catch (MySqlException exception)
             {
@@ -135,7 +129,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -152,14 +146,13 @@ namespace SalonAPI.Repository
             WHERE Date = @Date
                 AND TimeSlotID = @TimeSlotID
                 AND Cancel = 0";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<int>(verifyTimeSlot, new
                 {
-                    Date = bookingRecord.Date,
-                    TimeSlotID = bookingRecord.TimeSlotID
+                    bookingRecord.Date, bookingRecord.TimeSlotID
                 });
 
                 return bookingRecords.Single() == 0;
@@ -170,7 +163,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -187,7 +180,7 @@ namespace SalonAPI.Repository
 
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var cancelled = await _connection.ExecuteAsync(cancelAppointment,
                     new
                     {
@@ -202,14 +195,14 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
                 throw;
             }
         }
-        
+
         public async Task<List<BookingRecord>> GetAppointmentsByContactID(int contactID)
         {
             const string selectBookingRecords = @"
@@ -222,10 +215,10 @@ namespace SalonAPI.Repository
             WHERE ContactID = @ContactID
                 AND Date > NOW()
                 AND Cancel = 0";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
                 var bookingRecords = await _connection.QueryAsync<BookingRecord>(selectBookingRecords, new
                 {
                     ContactID = contactID
@@ -239,7 +232,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -266,12 +259,13 @@ namespace SalonAPI.Repository
                             AND	Date <= @EndDate
                             AND Cancel = 0
                         ORDER BY Date ";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
-                var bookingRecords = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(selectBookingRecords, 
-                    map: (bookingRecord, contact) =>
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
+                var bookingRecords = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(
+                    selectBookingRecords,
+                    (bookingRecord, contact) =>
                     {
                         bookingRecord.contact = contact;
                         return bookingRecord;
@@ -282,7 +276,7 @@ namespace SalonAPI.Repository
                         StartDate = startDate,
                         EndDate = endDate
                     }
-                    );
+                );
 
                 return bookingRecords.ToList();
             }
@@ -292,7 +286,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);
@@ -316,12 +310,13 @@ namespace SalonAPI.Repository
             JOIN contact c
             ON b.ContactID = c.ID
             WHERE b.ID = @BookingID";
-            
+
             try
             {
-                await using var _connection = new MySqlConnection(connectionString: _mySqlConfig.ConnectionString);
-                var bookingRecord = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(selectBookingRecord, 
-                    map: (record, contact) =>
+                await using var _connection = new MySqlConnection(_mySqlConfig.ConnectionString);
+                var bookingRecord = await _connection.QueryAsync<BookingRecord, Contact, BookingRecord>(
+                    selectBookingRecord,
+                    (record, contact) =>
                     {
                         record.contact = contact;
                         return record;
@@ -333,7 +328,7 @@ namespace SalonAPI.Repository
                     }
                 );
 
-                return bookingRecord.Any() ?  bookingRecord.Single() : new BookingRecord();
+                return bookingRecord.Any() ? bookingRecord.Single() : new BookingRecord();
             }
             catch (MySqlException exception)
             {
@@ -341,7 +336,7 @@ namespace SalonAPI.Repository
                 Console.WriteLine(exception);
                 throw;
             }
-            catch(InvalidOperationException exception)
+            catch (InvalidOperationException exception)
             {
                 // TODO: log expection
                 Console.WriteLine(exception);

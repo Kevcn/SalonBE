@@ -6,5 +6,5 @@ namespace SalonAPI.Configuration
     {
         public string Secret { get; set; }
         public TimeSpan TokenLifetime { get; set; }
-    }    
+    }
 }

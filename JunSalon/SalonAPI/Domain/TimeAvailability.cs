@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalonAPI.Domain
+﻿namespace SalonAPI.Domain
 {
     public class TimeAvailability
     {

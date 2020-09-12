@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace SalonAPI.Installers
 {
@@ -18,7 +14,7 @@ namespace SalonAPI.Installers
             services.AddSwaggerGen(s =>
             {
                 // OpenApiInfo is new to Swagger 5.0 that is compatible with .NET Core 3.0. used to be 'Info'
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "Jun Salon API", Version = "v1"});
+                s.SwaggerDoc("v1", new OpenApiInfo {Title = "Jun Salon API", Version = "v1"});
 
                 s.AddSecurityDefinition("basic", new OpenApiSecurityScheme
                 {
@@ -28,7 +24,7 @@ namespace SalonAPI.Installers
                     In = ParameterLocation.Header,
                     Description = "Basic Authorization header using the Bearer scheme."
                 });
- 
+
                 s.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -40,7 +36,7 @@ namespace SalonAPI.Installers
                                 Id = "basic"
                             }
                         },
-                        new string[] {}
+                        new string[] { }
                     }
                 });
 
@@ -48,8 +44,7 @@ namespace SalonAPI.Installers
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 s.IncludeXmlComments(xmlPath);
-
-            });                       
+            });
         }
     }
 }
