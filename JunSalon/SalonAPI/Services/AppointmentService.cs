@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using SalonAPI.Domain;
 using SalonAPI.Repository;
 
@@ -11,22 +12,22 @@ namespace SalonAPI.Services
     {
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IContactRepository _contactRepository;
+        private readonly ILogger<AppointmentService> _logger; 
 
-        public AppointmentService(IAppointmentRepository appointmentRepository, IContactRepository contactRepository)
+        public AppointmentService(IAppointmentRepository appointmentRepository, IContactRepository contactRepository, ILogger<AppointmentService> logger)
         {
             _appointmentRepository = appointmentRepository;
             _contactRepository = contactRepository;
+            _logger = logger;
         }
 
         public async Task<List<DayAvailability>> GetDayavailability(DateTime date)
         {
             var availablities = new List<DayAvailability>();
-
             var endDate = date.AddDays(14);
 
             var bookingRecords = await _appointmentRepository.GetAppointmentsByDay(date, endDate);
 
-            // add 14 days into the list, for each day, search the number of record, return true for less than 16 records
             for (var i = 0; i < 14; i++)
             {
                 var currentDate = date.AddDays(i);
@@ -45,15 +46,10 @@ namespace SalonAPI.Services
 
         public async Task<List<TimeAvailability>> GetTimeavailability(DateTime date)
         {
-            // query where date = date, get a list of bookingRecords, turn that into a list timeAvailable
-
+            var availablities = new List<TimeAvailability>();
             var numberOfTimeSlots = 16;
 
-            var availablities = new List<TimeAvailability>();
-
             var bookingRecords = await _appointmentRepository.GetSingleDayAppointments(date);
-
-            // if timeslot exists, return false
 
             for (var i = 1; i <= numberOfTimeSlots; i++)
             {

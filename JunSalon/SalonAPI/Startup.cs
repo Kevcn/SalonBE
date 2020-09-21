@@ -11,6 +11,7 @@ using SalonAPI.Helper;
 using SalonAPI.Installers;
 using SalonAPI.Repository;
 using SalonAPI.Services;
+using Serilog;
 
 namespace SalonAPI
 {
@@ -62,6 +63,8 @@ namespace SalonAPI
                 app.UseHsts();
             }
 
+            app.UseSerilogRequestLogging();
+            
             // New in .NET Core 3.0 - along with app.UserEndpoints,  replaces app.UseMvc()
             // This sets up the controllers to be visible of endpoints ###!important
             // Must be declared before Authentication and Authorization for them to work ###!important

@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Moq;
 using SalonAPI.Domain;
 using SalonAPI.Repository;
 using SalonAPI.Services;
+using Serilog;
 using Xunit;
 
 namespace Tests
@@ -14,7 +16,7 @@ namespace Tests
     {
         public AppointmentServiceTests()
         {
-            _appointmentService = new AppointmentService(_appointmentRepoMock.Object, _contactRepoMock.Object);
+            // _appointmentService = new AppointmentService(_appointmentRepoMock.Object, _contactRepoMock.Object);
         }
 
         private readonly AppointmentService _appointmentService;

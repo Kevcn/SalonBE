@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SalonAPI.Contracts.V1;
 using SalonAPI.Contracts.V1.Requests;
 using SalonAPI.Contracts.V1.Responses;
@@ -16,11 +17,13 @@ namespace SalonAPI.Controllers
     {
         private readonly IAppointmentService _appointmentService;
         private readonly IMapper _mapper;
+        private readonly ILogger<AppointmentController> _logger;
 
-        public AppointmentController(IMapper mapper, IAppointmentService appointmentService)
+        public AppointmentController(IMapper mapper, IAppointmentService appointmentService, ILogger<AppointmentController> logger)
         {
             _mapper = mapper;
             _appointmentService = appointmentService;
+            _logger = logger;
         }
 
         [HttpGet(ApiRoutes.Appointment.GetDayavailability)]
@@ -57,6 +60,7 @@ namespace SalonAPI.Controllers
 
             if (!booked) return BadRequest(new {error = "Book appointment failed"});
 
+            _logger.LogInformation("Booked - {0}", bookingRecord.Date);
             return Ok(_mapper.Map<BookingResponse>(bookingRecord));
         }
 
